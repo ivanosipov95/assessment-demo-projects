@@ -1,5 +1,6 @@
 const express = require('express');
 const app = new express();
 
-app.listen(3000, () =>console.log('server is started'));
+import {envConfig} from "./config/env-config";
 
+app.listen(envConfig.port, () =>console.log(`${envConfig.serviceName} server is started`));
