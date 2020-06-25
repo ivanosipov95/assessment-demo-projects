@@ -4,7 +4,7 @@ class EnvConfig {
 }
 
 export const envConfig = new EnvConfig(
-    process.env.port || '3001',
+    process.env.port || '3000',
     'bff'
 );
 
