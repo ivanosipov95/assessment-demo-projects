@@ -3,8 +3,8 @@ import {Entity} from './entity';
 import {Author} from './author';
 
 export interface Book extends Entity {
-    author: Author;
+    author: Author | string;
     cost: number;
-    currency: ReferenceData;
+    currency: ReferenceData | string;
 }
 

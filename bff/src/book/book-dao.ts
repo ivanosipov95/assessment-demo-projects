@@ -6,7 +6,7 @@ export class BookDao implements Dao<Book> {
     constructor(private transport: Transport<Book>) {
     }
 
-    getAll(): Promise<Book> {
+    getAll(): Promise<Book[]> {
         return this.transport.getAll(this.endpoint);
     }
 

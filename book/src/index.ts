@@ -5,14 +5,16 @@ import {books} from "./data";
 const express = require('express');
 const app = new express();
 
+app.use((req: Request, resp: Response<any>, next: NextFunction) => {
+    console.log(`${req.url} is handled`);
+    next();
+});
 
 app.get('/api/books/:id', (req: Request, resp: Response<any>, next: NextFunction) => {
-    console.log(`${req.url} is handled`);
     resp.json(books.find(b => b.id === req.params.id))
 })
 
 app.get('/api/books', (req: Request, resp: Response<any>, next: NextFunction) => {
-    console.log(`${req.url} is handled`);
     resp.json(books)
 })
 

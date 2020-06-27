@@ -3,10 +3,11 @@ const { gql } = require('apollo-server-express');
 export const typeDefs = gql`
     type Query {
         books: [Book!]!
+        book(id: ID!): Book!
         authors: [Author!]!
+        author(id: ID!): Author!
         shops: [Shop!]!
         refsData: [ReferenceData!]!
-        book(id: ID!): Book!
     }
     
     type Book implements Entity {
@@ -26,6 +27,7 @@ export const typeDefs = gql`
         id: ID!
         code: String!
         name: String!
+        sign: String!
     }
     
     type Shop implements Entity {
