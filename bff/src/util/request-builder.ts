@@ -1,7 +1,11 @@
+import {QueryParams} from '../models';
+
 const fetch = require('node-fetch');
+const querystring = require('querystring');
 
 export class RequestBuilder<T> {
     private _url: string;
+    private _queryParams: QueryParams | null;
 
     constructor(private baseUrl: string) {}
 
@@ -11,14 +15,18 @@ export class RequestBuilder<T> {
         return this;
     }
 
-    queryParams(): RequestBuilder<T> {
+    queryParams(queryParams: QueryParams): RequestBuilder<T> {
+        this._queryParams = Object.keys(queryParams).length !== 0 ? queryParams : null;
+
         return this;
     }
 
     get(): Promise<T> {
-        console.log(`sending GET request to: ${this._url}`);
+        const url = this._queryParams ? `${this._url}?${querystring.stringify(this._queryParams)}` : this._url;
 
-        return fetch(this._url)
+        console.log(`sending GET request to: ${url}`);
+
+        return fetch(url)
             .then((res: any) => res.json() as T)
     }
 }

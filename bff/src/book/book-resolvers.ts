@@ -15,5 +15,19 @@ export const bookResolvers = {
         } catch (e) {
             console.error(e);
         }
+    },
+
+    book: async (_: any, args: any) => {
+        const http = new HttpTransport<Book>(envConfig.bookServiceUrl);
+        const bookDao = new BookDao(http);
+
+        try {
+            const book = await bookDao.getById(args.id);
+
+            return book;
+        } catch (e) {
+            console.error(e);
+        }
+
     }
 };
