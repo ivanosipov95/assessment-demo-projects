@@ -1,17 +1,10 @@
-import {Dao, Transport} from '../models';
+import {Transport} from '../models';
 import {Author} from "../models/author";
+import {EntityDao} from "../util/entity-dao";
 
-export class AuthorDao implements Dao<Author> {
-    private endpoint = 'api/authors';
-
-    constructor(private transport: Transport<Author>) {
-    }
-
-    getAll(): Promise<Author[]> {
-        return this.transport.getAll(this.endpoint);
-    }
-
-    getById(id: string): Promise<Author> {
-        return this.transport.getOne(`${this.endpoint}/${id}`);
+export class AuthorDao extends EntityDao<Author> {
+    constructor(protected transport: Transport<Author>) {
+        super(transport);
+        this.endpoint = 'api/authors';
     }
 }

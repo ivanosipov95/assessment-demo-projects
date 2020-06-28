@@ -1,16 +1,9 @@
-import {Book, Dao, Transport} from '../models';
+import {Book, Transport} from '../models';
+import {EntityDao} from "../util/entity-dao";
 
-export class BookDao implements Dao<Book> {
-    private endpoint = 'api/books';
-
-    constructor(private transport: Transport<Book>) {
-    }
-
-    getAll(): Promise<Book[]> {
-        return this.transport.getAll(this.endpoint);
-    }
-
-    getById(id: string): Promise<Book> {
-        return this.transport.getOne(`${this.endpoint}/${id}`);
+export class BookDao extends EntityDao<Book> {
+    constructor(protected transport: Transport<Book>) {
+        super(transport);
+        this.endpoint = 'api/books';
     }
 }

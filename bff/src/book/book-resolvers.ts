@@ -3,7 +3,6 @@ import {DaoFactory} from "../util/dao-factory";
 import {DaoType} from "../util/dao-type";
 import {AuthorDao} from "../author/author-dao";
 import {Book} from "../models";
-import {ReferenceData} from "../models/reference-data";
 import {ReferenceDataDao} from "../reference-data/reference-data-dao";
 
 export const bookResolvers = {

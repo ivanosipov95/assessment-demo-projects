@@ -7,7 +7,9 @@ export const typeDefs = gql`
         authors: [Author!]!
         author(id: ID!): Author!
         shops: [Shop!]!
+        shop(id: ID!): Shop!
         refsData: [ReferenceData!]!
+        refData(code: String!): ReferenceData!
     }
     
     type Book implements Entity {

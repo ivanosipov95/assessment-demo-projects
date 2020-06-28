@@ -1,5 +1,6 @@
 import {bookResolvers} from "../book/book-resolvers";
 import {authorResolvers} from "../author/author-resolvers";
+import {shopResolvers} from "../shop/shop-resolvers";
 
 export const resolvers = {
     Query: {
@@ -7,6 +8,9 @@ export const resolvers = {
         book: bookResolvers.book,
         authors: authorResolvers.authors,
         author: authorResolvers.author,
+        shops: shopResolvers.shops,
+        shop: shopResolvers.shop
     },
-    Book: bookResolvers.Book
+    Book: bookResolvers.Book,
+    Shop: shopResolvers.Shop
 };

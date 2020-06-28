@@ -1,21 +1,12 @@
-import {Dao, Transport} from '../models';
+import {Transport} from '../models';
 import {ReferenceData} from "../models/reference-data";
-import {Author} from "../models/author";
+import {EntityDao} from "../util/entity-dao";
 
-export class ReferenceDataDao implements Dao<ReferenceData> {
-    private endpoint = 'api/reference-data';
-
-    constructor(private transport: Transport<ReferenceData>) {
+export class ReferenceDataDao extends EntityDao<ReferenceData> {
+    constructor(protected transport: Transport<ReferenceData>) {
+        super(transport);
+        this.endpoint = 'api/reference-data';
     }
-
-    getAll(): Promise<ReferenceData[]> {
-        return this.transport.getAll(this.endpoint);
-    }
-
-    getById(id: string): Promise<ReferenceData> {
-        return this.transport.getOne(`${this.endpoint}/${id}`);
-    }
-
 
     getByCode(code: string): Promise<ReferenceData> {
         return this.transport.getOne(`${this.endpoint}/${code}`);
