@@ -1,13 +1,17 @@
 import {NgModule} from '@angular/core';
-import {ApolloModule, APOLLO_OPTIONS} from 'apollo-angular';
+import {ApolloModule, APOLLO_OPTIONS, Apollo} from 'apollo-angular';
 import {HttpLinkModule, HttpLink, HttpLinkHandler} from 'apollo-angular-link-http';
 import {InMemoryCache} from 'apollo-cache-inmemory';
+import {resolvers, typeDefs} from "./resolvers";
+import {DocumentNode} from "graphql";
 
 const uri = `${window.origin}/graphql`;
-export function createApollo(httpLink: HttpLink): { cache: InMemoryCache; link: HttpLinkHandler } {
+export function createApollo(httpLink: HttpLink): { typeDefs: DocumentNode; cache: InMemoryCache; resolvers: {}; link: HttpLinkHandler } {
   return {
     link: httpLink.create({uri}),
-    cache: new InMemoryCache(),
+    cache: new InMemoryCache({addTypename: false}),
+    typeDefs,
+    resolvers
   };
 }
 
@@ -21,4 +25,5 @@ export function createApollo(httpLink: HttpLink): { cache: InMemoryCache; link: 
     },
   ],
 })
-export class GraphQLModule {}
+export class GraphQLModule {
+}

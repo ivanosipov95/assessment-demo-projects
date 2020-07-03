@@ -12,5 +12,22 @@ export const resolvers = {
         shop: shopResolvers.shop
     },
     Book: bookResolvers.Book,
-    Shop: shopResolvers.Shop
+    Shop: shopResolvers.Shop,
+    Entity: {
+        __resolveType(obj: any, context: any, info: any){
+            if(obj.cost){
+                return 'Book';
+            }
+
+            if(obj.books){
+                return 'Shop';
+            }
+
+            if(obj.code){
+                return 'ReferenceData';
+            }
+
+            return null;
+        },
+    },
 };

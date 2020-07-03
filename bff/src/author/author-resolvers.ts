@@ -1,6 +1,3 @@
-import {HttpTransport} from "../util/http-transport";
-import {envConfig} from "../config/env-config";
-import {Author} from "../models/author";
 import {AuthorDao} from "./author-dao";
 import {DaoFactory} from "../util/dao-factory";
 import {DaoType} from "../util/dao-type";
@@ -19,8 +16,7 @@ export const authorResolvers = {
     },
 
     author: async (_: any, args: any) => {
-        const http = new HttpTransport<Author>(envConfig.authorServiceUrl);
-        const authorDao = new AuthorDao(http);
+        const authorDao = DaoFactory.getInstance(DaoType.AUTHOR) as AuthorDao;
 
         try {
             const author = await authorDao.getById(args.id);

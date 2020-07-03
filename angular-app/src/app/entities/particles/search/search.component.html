@@ -1,0 +1,18 @@
+<div class="search">
+  <label class="search__item">Search <input [ngModel]="searchParams?.text"
+                                            (ngModelChange)="handleTextChange($event)">
+  </label>
+
+  <label class="search__item">{{entityType.BOOK}}
+    <input type="checkbox"
+           [checked]="searchParams?.type === entityType.BOOK"
+           (change)="handleTypeChange(entityType.BOOK, $event.target.checked)"></label>
+  <label class="search__item">{{entityType.AUTHOR}}
+    <input type="checkbox"
+           [checked]="searchParams?.type === entityType.AUTHOR"
+           (change)="handleTypeChange(entityType.AUTHOR, $event.target.checked)"></label>
+  <label class="search__item">{{entityType.SHOP}}
+    <input type="checkbox"
+           [checked]="searchParams?.type === entityType.SHOP"
+           (change)="handleTypeChange(entityType.SHOP, $event.target.checked)"></label>
+</div>

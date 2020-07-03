@@ -1,0 +1,7 @@
+<div class="entities">
+  <search class="entities__search" [searchParams]="searchParams$ | async | select:'searchParams'" (onChange)="handleSearchChange($event)"></search>
+
+  <div class="entities__list">
+    <entity-card [entity]="entity" (onOpen)="handleOpening($event)" *ngFor="let entity of entities$ | async | select:'books'"></entity-card>
+  </div>
+</div>

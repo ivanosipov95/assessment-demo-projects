@@ -1,0 +1,29 @@
+:host {
+  height: 100%;
+}
+
+.app {
+  height: 100%;
+  overflow: hidden;
+
+  &__header {
+    height: 10%;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    text-align: center;
+  }
+
+  &__main {
+    height: 80%;
+    transform: translateY(10%);
+  }
+
+  &__footer {
+    height: 10%;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    text-align: center;
+  }
+}

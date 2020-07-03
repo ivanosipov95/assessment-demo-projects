@@ -1,3 +1,9 @@
-<div>
-  {{ (hello$ | async )?.data | json }}
+<div class="app">
+  <header class="app__header">demo project</header>
+
+  <main class="app__main">
+    <router-outlet></router-outlet>
+  </main>
+
+  <footer class="app__footer">done by Ivan Osipov</footer>
 </div>
