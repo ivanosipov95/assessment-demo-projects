@@ -4,6 +4,9 @@ import {DaoType} from "../util/dao-type";
 import {AuthorDao} from "../author/author-dao";
 import {Book} from "../models";
 import {ReferenceDataDao} from "../reference-data/reference-data-dao";
+import {GraphQLResolveInfo} from "graphql";
+import 'apollo-cache-control';
+import {CacheScope} from "apollo-cache-control";
 
 export const bookResolvers = {
 
@@ -18,7 +21,10 @@ export const bookResolvers = {
             }
         },
 
-        currency: async (book: Book, args: any) => {
+        currency: async (book: Book, args: any, _: any, info: GraphQLResolveInfo) => {
+            // dynamic cache example
+            // info.cacheControl.setCacheHint({ maxAge: 2, scope: CacheScope.Public });
+
             const referenceDao = DaoFactory.getInstance(DaoType.REFERENCE_DATA) as ReferenceDataDao;
 
             try {

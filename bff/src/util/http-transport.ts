@@ -7,7 +7,6 @@ export class HttpTransport<T> implements Transport<T> {
     }
 
     getAll(endpoint: string, queryParams: QueryParams = {}): Promise<T[]> {
-        console.log('queryParams', queryParams);
         return new RequestBuilder<T[]>(this.baseUrl)
             .endpoint(endpoint)
             .queryParams(queryParams)
