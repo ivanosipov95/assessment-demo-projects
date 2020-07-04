@@ -15,4 +15,8 @@ export abstract class EntityDao<T extends Entity> implements Dao<T> {
         return this.transport.getOne(`${this.endpoint}/${id}`);
     }
 
+    updateName(id: string, name: string): Promise<T> {
+        return this.transport.update(`${this.endpoint}/${id}`, {name})
+    }
+
 }

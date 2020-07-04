@@ -15,7 +15,7 @@ export function createApollo(httpLink: HttpLink): { typeDefs: DocumentNode; cach
       addTypename: false,
       cacheRedirects: { // cache example
         Query: {
-          book: (_, args, {getCacheKey}) => getCacheKey({__typename: 'Book', id: args.id}),
+          book: (_, args, {cache, getCacheKey}) => getCacheKey({__typename: 'Book', id: args.id}),
         }
       }
     }),

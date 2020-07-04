@@ -1,0 +1,8 @@
+<div>
+  <div>{{ entity | json}}</div>
+
+  <div>
+    <label>Name: <input [(ngModel)]="entity.name"></label>
+  </div>
+  <button (click)="handleUpdate()">Update</button>
+</div>

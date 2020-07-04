@@ -1,4 +1,4 @@
-import {Transport, QueryParams} from '../models';
+import {QueryParams, Transport} from '../models';
 import {RequestBuilder} from "./request-builder";
 
 export class HttpTransport<T> implements Transport<T> {
@@ -18,5 +18,12 @@ export class HttpTransport<T> implements Transport<T> {
             .endpoint(endpoint)
             .queryParams(queryParams)
             .get();
+    }
+
+    update(endpoint: string, body: any): Promise<T> {
+        return new RequestBuilder<T>(this.baseUrl)
+            .endpoint(endpoint)
+            .body(body)
+            .put();
     }
 }

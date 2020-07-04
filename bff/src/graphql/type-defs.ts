@@ -13,6 +13,10 @@ export const typeDefs = gql`
         entities(text: String, type: EntityType): [Entity]
     }
     
+    type Mutation {
+        book(id: ID!, name: String): Book!
+    }
+    
     type Book implements Entity {
         id: ID!
         name: String!

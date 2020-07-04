@@ -2,6 +2,9 @@ import {bookResolvers} from "../book/book-resolvers";
 import {authorResolvers} from "../author/author-resolvers";
 import {shopResolvers} from "../shop/shop-resolvers";
 import {entitiesResolver} from "../entities/entities-resolvers";
+import {DaoFactory} from "../util/dao-factory";
+import {DaoType} from "../util/dao-type";
+import {BookDao} from "../book/book-dao";
 
 export const resolvers = {
     Query: {
@@ -12,6 +15,18 @@ export const resolvers = {
         shops: shopResolvers.shops,
         shop: shopResolvers.shop,
         entities: entitiesResolver.entities
+    },
+    Mutation: {
+        book: async (_: any, args: any) => {
+            const bookDao = DaoFactory.getInstance(DaoType.BOOK) as BookDao;
+
+
+            try {
+                return await bookDao.updateName(args.id, args.name);
+            } catch (e) {
+                console.error(e);
+            }
+        }
     },
     Book: bookResolvers.Book,
     Shop: shopResolvers.Shop,

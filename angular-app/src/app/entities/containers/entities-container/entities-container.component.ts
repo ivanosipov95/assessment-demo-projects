@@ -1,11 +1,12 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
 import {Apollo} from 'apollo-angular';
 import {Entity, SearchParams} from '../../models';
 import gql from 'graphql-tag';
 import {AppStore} from '../../../app-store';
-import {Observable} from "rxjs";
+import {Observable, Subject} from "rxjs";
 import {ApolloQueryResult} from "apollo-client";
-import {map, switchMap} from "rxjs/operators";
+import {map, switchMap, takeUntil} from "rxjs/operators";
+import {Router} from "@angular/router";
 
 export const getEntities = gql`
     query getEntities($text: String, $type: EntityType){
@@ -39,11 +40,18 @@ const updateSearchParams = gql`
   styleUrls: ['./entities-container.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class EntitiesContainerComponent implements OnInit {
+export class EntitiesContainerComponent implements OnInit, OnDestroy {
   searchParams$: Observable<ApolloQueryResult<any>>;
   entities$: Observable<ApolloQueryResult<any>>;
 
-  constructor(private apollo: Apollo, private appStore: AppStore) {
+
+  private destroy$ = new Subject();
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  constructor(private apollo: Apollo, private appStore: AppStore, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -56,7 +64,8 @@ export class EntitiesContainerComponent implements OnInit {
           query: getEntities,
           variables: {text, type}
         });
-      })
+      }),
+      takeUntil(this.destroy$)
     );
   }
 
@@ -72,6 +81,6 @@ export class EntitiesContainerComponent implements OnInit {
   }
 
   handleOpening(entity: Entity): void {
-    console.log(entity);
+    this.router.navigate(['entities', entity.id], {fragment: entity.__typename});
   }
 }

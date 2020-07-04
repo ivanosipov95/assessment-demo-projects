@@ -5,7 +5,7 @@ export const typeDefs = gql`
         searchParams: SearchParams
     }
 
-    type Mutation {
+    extend type Mutation {
         updateSearchParams(text: String, type: String): SearchParams
     }
 
