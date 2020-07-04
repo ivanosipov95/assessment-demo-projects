@@ -1,20 +1,4 @@
-import gql from 'graphql-tag';
 import {ApolloClient, Resolvers} from 'apollo-client';
-
-export const typeDefs = gql`
-    extend type Query {
-        searchParams: SearchParams
-    }
-
-    type Mutation {
-        updateSearchParams(text: String, type: String): SearchParams
-    }
-
-    type SearchParams {
-        text: String
-        type: String
-    }
-`;
 
 type ResolverFn = (
   parent: any,
@@ -34,8 +18,6 @@ interface AppResolvers extends Resolvers {
 export const resolvers: AppResolvers = {
   Mutation: {
     updateSearchParams: (parent, args, {cache}) => {
-      console.log('test');
-
       cache.writeData({data: {searchParams: {...args}}});
 
       return {searchParams: {...args}};

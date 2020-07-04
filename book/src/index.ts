@@ -12,10 +12,16 @@ app.use((req: Request, resp: Response<any>, next: NextFunction) => {
 
 app.get('/api/books/:id', (req: Request, resp: Response<any>, next: NextFunction) => {
     resp.json(books.find(b => b.id === req.params.id))
-})
+});
 
 app.get('/api/books', (req: Request, resp: Response<any>, next: NextFunction) => {
-    resp.json(books)
-})
+    if (!req.query.text) {
+        return resp.json(books);
+    }
+
+    const booksFilteredByName = books.filter(b => b.name.includes(req.query.text as string));
+
+    resp.json(booksFilteredByName);
+});
 
 app.listen(envConfig.port, () => console.log(`${envConfig.serviceName} server is started`));

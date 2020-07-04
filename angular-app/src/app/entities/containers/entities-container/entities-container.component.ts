@@ -3,12 +3,16 @@ import {Apollo} from 'apollo-angular';
 import {Entity, SearchParams} from '../../models';
 import gql from 'graphql-tag';
 import {AppStore} from '../../../app-store';
+import {Observable} from "rxjs";
+import {ApolloQueryResult} from "apollo-client";
+import {map, switchMap} from "rxjs/operators";
 
-export const getBooks = gql`
-    query {
-        books {
+export const getEntities = gql`
+    query getEntities($text: String, $type: EntityType){
+        entities(text: $text, type: $type) {
             id
             name
+            __typename
         }
     }
 `;
@@ -36,13 +40,24 @@ const updateSearchParams = gql`
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EntitiesContainerComponent implements OnInit {
-  searchParams$ = this.appStore.watchQuery({query: getSearchParams});
-  entities$ = this.apollo.watchQuery<any>({query: getBooks}).valueChanges;
+  searchParams$: Observable<ApolloQueryResult<any>>;
+  entities$: Observable<ApolloQueryResult<any>>;
 
   constructor(private apollo: Apollo, private appStore: AppStore) {
   }
 
   ngOnInit(): void {
+    this.searchParams$ = this.appStore.watchQuery({query: getSearchParams});
+
+    this.entities$ = this.searchParams$.pipe(
+      map(({data}) => data.searchParams),
+      switchMap(({text, type}) => {
+        return this.apollo.query<any>({
+          query: getEntities,
+          variables: {text, type}
+        });
+      })
+    );
   }
 
 
@@ -52,18 +67,14 @@ export class EntitiesContainerComponent implements OnInit {
     this.apollo.mutate({
       mutation: updateSearchParams,
       variables: {...searchParams},
-      refetchQueries: [{query: getSearchParams}]
-    }).subscribe((t) => console.log('mutatuin', t))
-
-    // this.appStore.writeData({searchParams});
-    // this.apollo.query<any>({
-    //   query: getBooks,
-    // }).subscribe(data => {
-    //   this.entities = data.data.books;
-    // });
+    }).subscribe();
   }
 
   handleOpening(entity: Entity): void {
     console.log(entity);
+  }
+
+  trackByFn(i: number, item: Entity): string {
+    return `${item.__typename}-${item.id}`;
   }
 }

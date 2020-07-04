@@ -1,9 +1,10 @@
 import {NgModule} from '@angular/core';
-import {ApolloModule, APOLLO_OPTIONS, Apollo} from 'apollo-angular';
-import {HttpLinkModule, HttpLink, HttpLinkHandler} from 'apollo-angular-link-http';
+import {APOLLO_OPTIONS, ApolloModule} from 'apollo-angular';
+import {HttpLink, HttpLinkHandler, HttpLinkModule} from 'apollo-angular-link-http';
 import {InMemoryCache} from 'apollo-cache-inmemory';
-import {resolvers, typeDefs} from "./resolvers";
+import {resolvers} from "./resolvers";
 import {DocumentNode} from "graphql";
+import {typeDefs} from "./type-defs";
 
 const uri = `${window.origin}/graphql`;
 export function createApollo(httpLink: HttpLink): { typeDefs: DocumentNode; cache: InMemoryCache; resolvers: {}; link: HttpLinkHandler } {

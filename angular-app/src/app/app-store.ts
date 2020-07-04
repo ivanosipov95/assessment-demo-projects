@@ -1,5 +1,5 @@
 import {Apollo} from "apollo-angular";
-import {ApolloClient, ApolloQueryResult, ObservableQuery} from "apollo-client";
+import {ApolloClient, ApolloQueryResult} from "apollo-client";
 import {EntityType} from "./entities/models";
 import {Injectable} from "@angular/core";
 import {Observable} from "rxjs";
@@ -32,6 +32,6 @@ export class AppStore {
   }
 
   private initAppState(): void {
-    this.client.writeData({data: {searchParams: {text: 'test', type: EntityType.BOOK}}});
+    this.client.writeData({data: {searchParams: {text: '1', type: EntityType.BOOK}}});
   }
 }

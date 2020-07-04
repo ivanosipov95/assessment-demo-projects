@@ -10,6 +10,7 @@ export const typeDefs = gql`
         shop(id: ID!): Shop!
         refsData: [ReferenceData!]!
         refData(code: String!): ReferenceData!
+        entities(text: String, type: EntityType): [Entity]
     }
     
     type Book implements Entity {
@@ -41,5 +42,12 @@ export const typeDefs = gql`
     interface Entity {
         id: ID!
         name: String!
+    }
+    
+    enum EntityType {
+        BOOK
+        AUTHOR
+        SHOP
+        ALL
     }
 `;

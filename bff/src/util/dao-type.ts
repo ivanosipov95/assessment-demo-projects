@@ -1,6 +1,6 @@
 export enum DaoType {
-    BOOK,
-    AUTHOR,
-    SHOP,
-    REFERENCE_DATA
+    BOOK = 'BOOK',
+    AUTHOR = 'AUTHOR',
+    SHOP= 'SHOP',
+    REFERENCE_DATA = 'REFERENCE_DATA'
 }

@@ -1,6 +1,6 @@
 export enum EntityType {
-  BOOK = 'Book',
-  AUTHOR = 'Author',
-  SHOP = 'Shop',
+  BOOK = 'BOOK',
+  AUTHOR = 'AUTHOR',
+  SHOP = 'SHOP',
   ALL = 'ALL',
 }

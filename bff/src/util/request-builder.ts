@@ -16,7 +16,7 @@ export class RequestBuilder<T> {
     }
 
     queryParams(queryParams: QueryParams): RequestBuilder<T> {
-        this._queryParams = Object.keys(queryParams).length !== 0 ? queryParams : null;
+        this._queryParams = queryParams && Object.keys(queryParams).length !== 0 ? queryParams : null;
 
         return this;
     }

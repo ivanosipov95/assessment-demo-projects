@@ -12,10 +12,16 @@ app.use((req: Request, resp: Response<any>, next: NextFunction) => {
 
 app.get('/api/shops/:id', (req: Request, resp: Response<any>, next: NextFunction) => {
     resp.json(shops.find(s => s.id === req.params.id))
-})
+});
 
 app.get('/api/shops', (req: Request, resp: Response<any>, next: NextFunction) => {
-    resp.json(shops)
-})
+    if (!req.query.text) {
+        return resp.json(shops);
+    }
+
+    const shopsFilteredByName = shops.filter(b => b.name.includes(req.query.text as string));
+
+    resp.json(shopsFilteredByName);
+});
 
 app.listen(envConfig.port, () => console.log(`${envConfig.serviceName} server is started`));
