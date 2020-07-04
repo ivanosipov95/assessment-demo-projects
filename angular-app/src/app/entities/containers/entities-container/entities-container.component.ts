@@ -60,10 +60,11 @@ export class EntitiesContainerComponent implements OnInit {
     );
   }
 
+  trackByFn(i: number, item: Entity): string {
+    return `${item.__typename}-${item.id}`;
+  }
 
   handleSearchChange(searchParams: SearchParams): void {
-    console.log(searchParams);
-
     this.apollo.mutate({
       mutation: updateSearchParams,
       variables: {...searchParams},
@@ -72,9 +73,5 @@ export class EntitiesContainerComponent implements OnInit {
 
   handleOpening(entity: Entity): void {
     console.log(entity);
-  }
-
-  trackByFn(i: number, item: Entity): string {
-    return `${item.__typename}-${item.id}`;
   }
 }

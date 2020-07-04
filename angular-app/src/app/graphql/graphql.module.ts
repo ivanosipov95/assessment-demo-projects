@@ -7,10 +7,18 @@ import {DocumentNode} from "graphql";
 import {typeDefs} from "./type-defs";
 
 const uri = `${window.origin}/graphql`;
+
 export function createApollo(httpLink: HttpLink): { typeDefs: DocumentNode; cache: InMemoryCache; resolvers: {}; link: HttpLinkHandler } {
   return {
     link: httpLink.create({uri}),
-    cache: new InMemoryCache({addTypename: false}),
+    cache: new InMemoryCache({
+      addTypename: false,
+      cacheRedirects: { // cache example
+        Query: {
+          book: (_, args, {getCacheKey}) => getCacheKey({__typename: 'Book', id: args.id}),
+        }
+      }
+    }),
     typeDefs,
     resolvers
   };
